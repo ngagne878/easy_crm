@@ -1,0 +1,20 @@
+.transition-width {
+  transition: width 0.3s;
+}
+
+.toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+button:hover .toggle-icon {
+  transform: rotate(90deg);
+}
+
+/* .sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh; 
+  overflow-y: auto; 
+} */
+

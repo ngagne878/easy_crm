@@ -1,0 +1,92 @@
+<div class="p-6 bg-gray-100 min-h-screen">
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">Rapports de Ventes, Distribution des Contacts et Statut des Factures</h2>
+  <div class="flex flex-wrap gap-4 mb-6">
+    <div class="flex-1 bg-white shadow-md rounded-lg p-4">
+      <div class="bg-yellow-400 p-1 rounded inline-flex items-center w-full">
+        <h3 class="text-xl font-semibold mb-2 text-white">Rapports de Ventes</h3>
+      </div>
+      <div *ngIf="salesPerformance && salesPerformance.length; else noSales" class="text-gray-700">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b">
+              <th class="px-4 py-2 text-left">Date</th>
+              <th class="px-4 py-2 text-left">Montant (TTC)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sale of salesPerformance">
+              <td class="px-4 py-2">{{ sale.date }}</td>
+              <td class="px-4 py-2">{{ sale.amount | currency }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noSales>
+        <p class="text-gray-600">Aucune Vente</p>
+      </ng-template>
+  </div>    
+    <div class="flex-1 bg-white shadow-md rounded-lg p-4">
+      <div class="bg-green-400 p-1 rounded inline-flex items-center w-full">
+        <h3 class="text-xl font-semibold mb-2 text-white">Distribution des Contacts</h3>
+      </div>
+      <div *ngIf="contactsDistribution && contactsDistribution.length; else noContacts" class="text-gray-700">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b">
+              <th class="px-4 py-2 text-left">Nom</th>
+              <th class="px-4 py-2 text-left">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contact of contactsDistribution">
+              <td class="px-4 py-2">{{ contact.name }}</td>
+              <td class="px-4 py-2">{{ contact.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noContacts>
+        <p class="text-gray-600">Aucun Contact</p>
+      </ng-template>
+    </div>
+    <div class="flex-1 bg-white shadow-md rounded-lg p-4">
+      <div class="bg-blue-500 p-1 rounded inline-flex items-center w-full">
+        <h3 class="text-xl font-semibold mb-2 text-white">Statut des Factures</h3>
+      </div>
+      <div *ngIf="invoicesStatus && invoicesStatus.length; else noInvoices" class="text-gray-700">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="border-b">
+              <th class="px-4 py-2 text-left">Facture</th>
+              <th class="px-4 py-2 text-left">Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let invoice of invoicesStatus">
+              <td class="px-4 py-2">{{ invoice.invoiceNumber }}</td>
+              <td class="px-4 py-2">{{ invoice.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noInvoices>
+        <p class="text-gray-600 ">Aucune Facture</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Formulaire pour rapport personnalisé -->
+  <form (ngSubmit)="generateCustomReport()" class="bg-white shadow-md rounded-lg p-6">
+    <h3 class="text-xl font-semibold mb-4 text-gray-800">Générer un Rapport Personnalisé</h3>
+    
+    <div class="mb-4">
+      <label for="status" class="block text-gray-700 text-sm font-medium mb-2">Statut:</label>
+      <input type="text" id="status" [(ngModel)]="customCriteria.status" name="status" 
+             class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+    </div>
+        
+    <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      Générer Rapport
+    </button>
+  </form>
+</div>
